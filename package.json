@@ -73,7 +73,8 @@
     "karma-junit-reporter": "^0.3.3",
     "karma-ng-html2js-preprocessor": "^0.1.2",
     "karma-sourcemap-loader": "^0.3.7",
-    "karma-webpack": "^1.7.0"
+    "karma-webpack": "^1.7.0",
+    "coveralls": "2.11.16"
   },
   "scripts": {
     "test": "grunt ci:travis"
