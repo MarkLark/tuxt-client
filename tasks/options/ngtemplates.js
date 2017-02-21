@@ -13,15 +13,15 @@ let options = {
     },
     bootstrap: function(module, script) {
         return '"use strict";' +
-            'angular.module("dstore.templates-cache")' +
+            'angular.module("tuxt.templates-cache")' +
             '.run([\'$templateCache\', function($templateCache) {' +
             script + ' }]);';
     }
 };
 
-// get the superdesk.config.js configuration object
+// get the tuxt.config.js configuration object
 function getConfig() {
-    return require(path.join(process.cwd(), 'dstore.config.js'))();
+    return require(path.join(process.cwd(), 'tuxt.config.js'))();
 }
 
 module.exports = {
@@ -47,7 +47,7 @@ module.exports = {
     },
 
     // gen-apps generates a file that imports all of the external node
-    // modules defined in dstore.config.js and returns an array of their
+    // modules defined in tuxt.config.js and returns an array of their
     // exports.
     'gen-apps': {
         cwd: '<%= coreDir %>',

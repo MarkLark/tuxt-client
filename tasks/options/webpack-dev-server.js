@@ -54,7 +54,7 @@ module.exports = function(grunt) {
 function getProxy() {
     // isEmbedded will be true when the app is embedded into the main repo as a
     // node module.
-    let isEmbedded = require('fs').existsSync('./node_modules/dstore-core');
+    let isEmbedded = require('fs').existsSync('./node_modules/tuxt-core');
 
     // prepend returns a proxy configuration that prepends the passed URL with
     // the given parameter.
@@ -68,8 +68,8 @@ function getProxy() {
     };
 
     let proxy = isEmbedded ? {
-        '/scripts/*': prepend('node_modules/dstore-core'),
-        '/images/*': prepend('node_modules/dstore-core')
+        '/scripts/*': prepend('node_modules/tuxt-core'),
+        '/images/*': prepend('node_modules/tuxt-core')
     } : {};
 
     // on the dev server the bundle is in the dist folder
