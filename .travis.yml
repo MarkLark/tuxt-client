@@ -29,4 +29,4 @@ script:
   - grunt build
 
 after_script:
-  - cat coverage/lcov/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+  - cat ./coverage/lcov/lcov.info | ./node_modules/coveralls/bin/coveralls.js
