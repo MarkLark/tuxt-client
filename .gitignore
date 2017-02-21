@@ -13,6 +13,8 @@ nosetests.xml
 coverage.xml
 *,cover
 .hypothesis/
+coverage/
+*generated*.js
 
 # idea files
 .idea/

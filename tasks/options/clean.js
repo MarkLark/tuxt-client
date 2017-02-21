@@ -14,5 +14,13 @@ module.exports = {
     },
     server: {
         files: '<%= tmpDir %>'
+    },
+    coverage: {
+        files: [{
+            files: [{
+                dot: true,
+                src: ['coverage/']
+            }]
+        }]
     }
 };

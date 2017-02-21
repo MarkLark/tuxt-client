@@ -115,6 +115,10 @@ module.exports = function makeConfig(grunt) {
                 {
                     test: /\.(png|gif|jpeg|jpg|woff|woff2|eot|ttf|svg)(\?.*$|$)/,
                     loader: 'file-loader'
+                },
+                {
+                    test: /bootstrap\/dist\/js\/umd\//,
+                    loader: 'imports?jQuery=jquery'
                 }
             ]
         }
