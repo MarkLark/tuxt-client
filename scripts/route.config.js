@@ -6,7 +6,7 @@ export default function(app) {
         .state('index', {
             abstract: true,
             views: {
-                'main': { template: '<ui-view></ui-view>' },
+                main: {template: '<ui-view></ui-view>'},
             }
         });
     }
