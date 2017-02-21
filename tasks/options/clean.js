@@ -17,10 +17,8 @@ module.exports = {
     },
     coverage: {
         files: [{
-            files: [{
-                dot: true,
-                src: ['coverage/']
-            }]
+            dot: true,
+            src: ['coverage/']
         }]
     }
 };
