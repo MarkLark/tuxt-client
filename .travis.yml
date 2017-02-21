@@ -11,6 +11,9 @@ addons:
     packages:
       - google-chrome-stable
 
+cache:
+  directories:
+    - $HOME/.npm
 
 before_install:
   - npm config set loglevel warn
