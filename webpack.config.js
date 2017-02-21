@@ -55,7 +55,7 @@ module.exports = function makeConfig(grunt) {
                     query: {
                         cacheDirectory: true,
                         presets: ['es2015'],
-                        plugins: ['transform-object-rest-spread']
+                        plugins: ['transform-object-rest-spread', 'istanbul']
                     }
                 },
                 {
