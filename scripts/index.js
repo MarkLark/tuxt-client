@@ -22,8 +22,6 @@ body.ready(() => {
 
     angular.bootstrap(body, [
         'tuxt.config',
-        'tuxt.core',
-        'tuxt.apps'
     ].concat(externalApps), {strictDi: true});
 
     window.dstoreIsReady = true;
