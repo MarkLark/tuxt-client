@@ -44,8 +44,6 @@ module.exports = function(grunt) {
     grunt.registerTask('server', [
         'clean',
         'copy:index',
-        'copy:config',
-        'ngtemplates:gen-apps',
         'ngtemplates:dev',
         'webpack-dev-server:start'
     ]);
@@ -54,9 +52,7 @@ module.exports = function(grunt) {
     grunt.registerTask('build', [
         'clean',
         'copy:index',
-        'copy:config',
         'copy:assets',
-        'ngtemplates:gen-apps',
         'ngtemplates:core',
         'webpack:build',
         'filerev',

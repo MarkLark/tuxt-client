@@ -8,9 +8,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
     </head>
-    <body ng-class="config.bodyClass">
-        <div tuxt-view></div>
+    <body ng-app="tuxtApp">
+        <div ui-view="main"></div>
         <script src="app.bundle.js"></script>
-        <script src="config.js"></script>
     </body>
 </html>

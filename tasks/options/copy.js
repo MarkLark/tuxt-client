@@ -16,20 +16,6 @@ module.exports = {
             }
         ]
     },
-    config: {
-        files: [
-            {
-                cwd: process.cwd(),
-                src: path.join(appRoot, 'scripts', 'config.js'),
-                dest: '<%= distDir %>/config.js'
-            },
-            {
-                cwd: process.cwd(),
-                src: 'config.js',
-                dest: '<%= distDir %>/config.js'
-            },
-        ]
-    },
     assets: {
         files: [
             {

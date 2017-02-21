@@ -28,23 +28,6 @@ module.exports = function(grunt) {
                     publicPath: 'dist'
                 }
             }
-        },
-
-        'ui-guide': {
-            keepAlive: true,
-            contentBase: './docs/ui-guide/dist',
-            port: 9100,
-            webpack: {
-                entry: {
-                    docs: ['webpack-dev-server/client?http://localhost:9100/', 'docs/ui-guide/index']
-                },
-                output: {
-                    path: path.join(process.cwd(), 'docs/ui-guide/dist'),
-                    publicPath: 'docs/dist'
-                },
-                devtool: 'eval',
-                debug: true
-            }
         }
     };
 };
@@ -52,10 +35,6 @@ module.exports = function(grunt) {
 // getProxy returns the proxy configuration for the dev server. In the dev
 // environment, some paths need to be rewritten.
 function getProxy() {
-    // isEmbedded will be true when the app is embedded into the main repo as a
-    // node module.
-    let isEmbedded = require('fs').existsSync('./node_modules/tuxt-core');
-
     // prepend returns a proxy configuration that prepends the passed URL with
     // the given parameter.
     let prepend = function(loc) {
@@ -67,14 +46,7 @@ function getProxy() {
         };
     };
 
-    let proxy = isEmbedded ? {
-        '/scripts/*': prepend('node_modules/tuxt-core'),
-        '/images/*': prepend('node_modules/tuxt-core')
-    } : {};
-
-    // on the dev server the bundle is in the dist folder
-    proxy['/app.bundle.js'] = prepend('dist');
-    proxy['/config.js'] = prepend('dist');
-
-    return proxy;
+    return {
+        '/app.bundle.js': prepend('dist')
+    };
 }
