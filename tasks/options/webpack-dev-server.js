@@ -1,4 +1,3 @@
-let path = require('path');
 let makeConfig = require('../../webpack.config.js');
 
 module.exports = function(grunt) {
