@@ -10,11 +10,14 @@ import ngReduxUiRouter from 'redux-ui-router';
 import reduxConfig from './redux.config';
 import routeConfig from './route.config';
 
+import apps from './apps';
+
 const app = angular
     .module('tuxtApp', [
         uiRouter,
         ngRedux,
-        ngReduxUiRouter
+        ngReduxUiRouter,
+        apps
     ]);
 
 // Disable HTML5 mode for routes

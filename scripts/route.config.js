@@ -8,6 +8,11 @@ export default function(app) {
             views: {
                 main: {template: '<ui-view></ui-view>'},
             }
+        })
+
+        .state('index.appscatview', {
+            url: '/apps/category/view',
+            template: '<apps-category-view></apps-category-view>'
         });
     }
     return RouterConfig;

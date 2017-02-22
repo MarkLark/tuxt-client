@@ -7,8 +7,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+        <style>
+            ul.nav {
+                padding-left: 0;
+            }
+            ul.nav li {
+                list-style: none;
+                display: inline-block;
+            }
+        </style>
     </head>
     <body ng-app="tuxtApp">
+        <ul class="nav">
+            <li><a ui-sref="index.appscatview">App Categories</a></li>
+        </ul>
+
         <div ui-view="main"></div>
         <script src="app.bundle.js"></script>
     </body>

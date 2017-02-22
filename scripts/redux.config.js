@@ -3,7 +3,7 @@ import createLogger from 'redux-logger';
 
 import {combineReducers} from 'redux';
 import {router} from 'redux-ui-router';
-import DStore from './dstore/redux/dstore-redux';
+import DStore from './dstore/redux';
 
 const logger = createLogger();
 
