@@ -75,7 +75,7 @@ export default function(namespaces) {
         ptr[lastName] = {
             add: makeAdd(namespace),
             read: makeRead(namespace),
-            read_all: makeReadAll(namespace),
+            readAll: makeReadAll(namespace),
             update: makeUpdate(namespace),
             delete: makeDelete(namespace)
         };
