@@ -1,14 +1,14 @@
 import {ACTIONS, HTTP_METHODS, TYPES, CALL_API} from './dstore-redux.constants';
 
-const API_ROOT = "http://127.0.0.1:5000/api/";
+const API_ROOT = 'http://127.0.0.1:5000/api/';
 
-const send_api = (endpoint, action, data = null) => {
-    if (! HTTP_METHODS.hasOwnProperty(action)) {
-        throw new Error("Incompatible action supplied");
+const sendApi = (endpoint, action, data = null) => {
+    if (!HTTP_METHODS.hasOwnProperty(action)) {
+        throw new Error('Incompatible action supplied');
     }
 
     const packet = {
-        headers: { 'Accept': 'application/json' },
+        headers: {Accept: 'application/json'},
         method: HTTP_METHODS[action],
         mode: 'cors'
     };
@@ -18,10 +18,10 @@ const send_api = (endpoint, action, data = null) => {
         packet.body = JSON.stringify(data);
     }
 
-    return fetch(endpoint, packet).then( response =>
-        response.json().then(data => {
+    return fetch(endpoint, packet).then((response) =>
+        response.json().then((data) => {
             if (!response.ok) {
-                return Promise.reject(data)
+                return Promise.reject(data);
             }
 
             return data;
@@ -29,25 +29,26 @@ const send_api = (endpoint, action, data = null) => {
     );
 };
 
-export default store => next => action => {
+export default (store) => (next) => (action) => {
     const callAPI = action[CALL_API];
 
-    if (typeof callAPI === 'undefined' ) {
+    if (typeof callAPI === 'undefined') {
         return next(action);
     }
 
     let {data = null} = callAPI;
-    const { namespace, type } = callAPI;
-    let needs_id = [ ACTIONS.READ, ACTIONS.UPDATE, ACTIONS.DELETE ].indexOf(type) > -1;
+    const {namespace, type} = callAPI;
+    let needsId = [ACTIONS.READ, ACTIONS.UPDATE, ACTIONS.DELETE].indexOf(type) > -1;
 
-    if (typeof namespace !== 'string' ) {
+    if (typeof namespace !== 'string') {
         throw new Error('Model namespace must be a string.');
     }
 
-    const actionWith = rdata => {
+    const actionWith = (rdata) => {
         const finalAction = Object.assign({}, action, rdata);
+
         delete finalAction[CALL_API];
-        if (needs_id) {
+        if (needsId) {
             finalAction.id = data.id;
         }
         return finalAction;
@@ -69,7 +70,7 @@ export default store => next => action => {
         failure: `${type}_${ns}_${TYPES.FAILURE}`
     };
 
-    next( actionWith({
+    next(actionWith({
         type: types.request,
         namespace: namespace,
         action: type
@@ -77,26 +78,26 @@ export default store => next => action => {
 
     let endpoint = API_ROOT + namespace.replace('.', '/') + '/';
 
-    if (needs_id) {
+    if (needsId) {
         endpoint = `${endpoint}${data.id}`;
         if (type === ACTIONS.READ) {
             data = null;
-            needs_id = false;
+            needsId = false;
         }
     }
 
-    return send_api( endpoint, type, data ).then(
-        response => next( actionWith({
-            response,
+    return sendApi(endpoint, type, data).then(
+        (response) => next(actionWith({
+            response: response,
             type: types.success,
             namespace: namespace,
             action: type
         })),
-        error => next( actionWith({
+        (error) => next(actionWith({
             type: types.failure,
             error: error.message || 'Something bad happened',
             namespace: namespace,
             action: type
         }))
-    )
+    );
 };
