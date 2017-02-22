@@ -25,6 +25,7 @@ before_install:
 
 install:
   - npm install
+  - python --version
   - cd tuxt-server
   - sudo pip install -q Flask==0.12
   - sudo pip install -q -r requirements.txt
