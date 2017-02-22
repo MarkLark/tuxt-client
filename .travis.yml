@@ -1,5 +1,6 @@
 language: node_js
 node_js: "6"
+python: "2.7"
 
 sudo: required
 dist: trusty
@@ -19,12 +20,20 @@ before_install:
   - npm config set loglevel warn
   - npm install -g grunt-cli
   - export DISPLAY=:99.0 && /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1920x1080x24
-  - export CHROME_BIN=`which google-chrome` && $CHROME_BIN --version ;
+  - export CHROME_BIN=`which google-chrome` && $CHROME_BIN --version;
+  - git clone --depth=50 --branch=master https://github.com/MarkLark/tuxt-client.git MarkLark/tuxt-server
 
 install:
   - npm install
+  - cd tuxt-server
+  - sudo pip install -q Flask==0.12
+  - sudo pip install -q -r requirements.txt
+  - cd ..
 
 script:
+  - cd tuxt-server
+  - python run-test-api.py &
+  - sleep 5s
   - grunt ci:travis
   - cat ./coverage/lcov/lcov.info | ./node_modules/coveralls/bin/coveralls.js
   - grunt build
