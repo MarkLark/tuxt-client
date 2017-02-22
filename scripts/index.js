@@ -17,11 +17,11 @@ const app = angular
         ngReduxUiRouter
     ]);
 
-// Enable HTML5 mode for routes
+// Disable HTML5 mode for routes
 app.config(['$locationProvider', ($locationProvider) => {
     $locationProvider.hashPrefix('!');
     $locationProvider.html5Mode({
-        enabled: true,
+        enabled: false,
         requireBase: false
     });
 }]);
