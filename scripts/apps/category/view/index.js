@@ -6,7 +6,7 @@ export default angular
     .module('tuxtApp.apps.category.view', [])
 
     .component('appsCategoryView', {
-        template,
+        template: template,
         controller: AppsController,
     })
 

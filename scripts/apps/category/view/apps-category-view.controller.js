@@ -2,7 +2,6 @@ import {dstore} from '../../../dstore/redux';
 import {stateGo} from 'redux-ui-router';
 
 export default class {
-    /*@ngInject;*/
     constructor($scope, $ngRedux) {
         this.$ngRedux = $ngRedux;
 
@@ -29,7 +28,7 @@ export default class {
         this.oid = null;
     }
 
-    goto_update(id) {
+    gotoUpdate(id) {
         this.$ngRedux.dispatch(stateGo('index.appscatupdate', {id: id}));
     }
 }
