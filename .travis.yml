@@ -27,6 +27,7 @@ install:
   - npm install
   - python --version
   - cd tuxt-server
+  - sudo pip install -q urllib3[secure]
   - sudo pip install -q Flask==0.12
   - sudo pip install -q -r requirements.txt
   - cd ..
