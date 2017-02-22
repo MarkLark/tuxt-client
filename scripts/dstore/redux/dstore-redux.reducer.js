@@ -2,55 +2,56 @@ import merge from 'lodash/merge';
 import {combineReducers} from 'redux';
 import {ACTIONS} from './dstore-redux.constants';
 
-function add_instance(state, action) {
+function addInstance(state, action) {
     let obj = action.response;
-    let new_state = { instances: {} };
-    new_state.instances[obj.id] = obj;
+    let newState = {instances: {}};
 
-    return merge({}, state, new_state );
+    newState.instances[obj.id] = obj;
+    return merge({}, state, newState);
 }
 
-function read_all_instances(state, action) {
+function readAllInstances(state, action) {
     let instances = action.response;
-    let new_state = { instances: {} };
+    let newState = {instances: {}};
 
-    instances.forEach( obj => {
-        new_state.instances[obj.id] = obj;
+    instances.forEach((obj) => {
+        newState.instances[obj.id] = obj;
     });
 
-    return merge({}, state, new_state);
+    return merge({}, state, newState);
 }
 
-function read_instance(state, action) {
+function readInstance(state, action) {
     let obj = action.response;
-    let new_state = Object.assign({}, state);
-    new_state.instances[obj.id] = obj;
+    let newState = Object.assign({}, state);
 
-    return new_state;
+    newState.instances[obj.id] = obj;
+    return newState;
 }
 
-function delete_instance(state, action) {
+function deleteInstance(state, action) {
     let oid = action.id;
-    let new_state = Object.assign({}, state);
-    delete new_state.instances[oid];
-    return new_state;
+    let newState = Object.assign({}, state);
+
+    delete newState.instances[oid];
+    return newState;
 }
 
-function update_instance(state, action) {
+function updateInstance(state, action) {
     let obj = action.response;
-    let new_state = Object.assign({}, state);
-    new_state.instances[obj.id] = obj;
+    let newState = Object.assign({}, state);
 
-    return new_state;
+    newState.instances[obj.id] = obj;
+    return newState;
 }
 
-const init_value = { instances: {} };
+const initValue = {instances: {}};
 
-function create_reducer(namespace) {
-    return (state = init_value, action) => {
+function createReducer(namespace) {
+    return (state = initValue, action) => {
         // If we don't have a namespace, then it's not a DStore action
         // If we don't have a response, then there might have been an error
-        if (! action.namespace || ! action.response || ! action.action) {
+        if (!action.namespace || !action.response || !action.action) {
             return state;
         }
 
@@ -60,42 +61,37 @@ function create_reducer(namespace) {
         }
 
         switch (action.action) {
-            case ACTIONS.ADD:
-                return add_instance(state, action);
-            case ACTIONS.READ:
-                return read_instance(state, action);
-            case ACTIONS.READ_ALL:
-                return read_all_instances(state, action);
-            case ACTIONS.UPDATE:
-                return update_instance(state, action);
-            case ACTIONS.DELETE:
-                return delete_instance(state, action);
-            default:
-                return state;
+        case ACTIONS.ADD:
+            return addInstance(state, action);
+        case ACTIONS.READ:
+            return readInstance(state, action);
+        case ACTIONS.READ_ALL:
+            return readAllInstances(state, action);
+        case ACTIONS.UPDATE:
+            return updateInstance(state, action);
+        case ACTIONS.DELETE:
+            return deleteInstance(state, action);
+        default:
+            return state;
         }
-    }
+    };
 }
 
-export default function generate_reducers(ptr, namespace = "") {
+export default function generateReducers(ptr, namespace = '') {
     let rtn = {};
-    Object.keys(ptr).forEach( key => {
+
+    Object.keys(ptr).forEach((key) => {
         let value = ptr[key];
         let type = typeof value;
 
         if (type === 'string') {
-            if (namespace === "") {
-                namespace = value;
-            } else {
-                namespace = `${namespace}.${value}`;
-            }
-            rtn[value] = create_reducer(namespace);
+            let ns = namespace === '' ? value : `${namespace}.${value}`;
+
+            rtn[value] = createReducer(ns);
         } else if (type === 'object') {
-            if (namespace === "") {
-                namespace = key;
-            } else {
-                namespace = `${namespace}.${key}`;
-            }
-            rtn[key] = generate_reducers(value, namespace);
+            let ns = namespace === '' ? key : `${namespace}.${key}`;
+
+            rtn[key] = generateReducers(value, ns);
         } else {
             throw new Error('Unsupported entry type: ' + type);
         }
