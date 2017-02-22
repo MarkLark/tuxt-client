@@ -8,27 +8,27 @@ import DStore from './dstore/redux/dstore-redux';
 const logger = createLogger();
 
 let dstore = DStore([
-    "app.app",
-    "app.category",
-    "app.subcategory",
-    "app.version",
-    "article.article",
-    "article.chapterlist",
-    "article.tag",
-    "article.taglist",
-    "chapter.chapter",
-    "chapter.content",
-    "chapter.contentmap",
-    "chapter.map",
-    "chapter.tag",
-    "chapter.taglist",
-    "os.distro",
-    "os.os",
-    "os.version"
+    'app.app',
+    'app.category',
+    'app.subcategory',
+    'app.version',
+    'article.article',
+    'article.chapterlist',
+    'article.tag',
+    'article.taglist',
+    'chapter.chapter',
+    'chapter.content',
+    'chapter.contentmap',
+    'chapter.map',
+    'chapter.tag',
+    'chapter.taglist',
+    'os.distro',
+    'os.os',
+    'os.version'
 ]);
 
 let reducers = combineReducers({
-    router,
+    router: router,
     dstore: dstore.reducers
 });
 
