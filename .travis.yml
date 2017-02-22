@@ -34,6 +34,7 @@ install:
 script:
   - cd tuxt-server
   - python run-test-api.py &
+  - cd ..
   - sleep 5s
   - grunt ci:travis
   - cat ./coverage/lcov/lcov.info | ./node_modules/coveralls/bin/coveralls.js
