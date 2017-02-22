@@ -1,8 +1,8 @@
-import {CALL_API, ACTIONS} from "./dstore-redux.constants";
+import {CALL_API, ACTIONS} from './dstore-redux.constants';
 
-function make_add(namespace) {
-    return instance => (dispatch, getState) => {
-        return dispatch({[CALL_API]: {
+function makeAdd(namespace) {
+    return (instance) => (dispatch, getState) => {
+        dispatch({[CALL_API]: {
             type: ACTIONS.ADD,
             namespace: namespace,
             data: instance
@@ -10,72 +10,74 @@ function make_add(namespace) {
     };
 }
 
-function make_read(namespace) {
-    return id => (dispatch, getState) => {
-        return dispatch({[CALL_API]: {
+function makeRead(namespace) {
+    return (id) => (dispatch, getState) => {
+        dispatch({[CALL_API]: {
             type: ACTIONS.READ,
             namespace: namespace,
-            data: { id: id }
+            data: {id: id}
         }});
     };
 }
 
-function make_read_all(namespace) {
+function makeReadAll(namespace) {
     return () => (dispatch, getState) => {
-        return dispatch({[CALL_API]: {
+        dispatch({[CALL_API]: {
             type: ACTIONS.READ_ALL,
             namespace: namespace
         }});
-    }
+    };
 }
 
-function make_update(namespace) {
+function makeUpdate(namespace) {
     return (instance) => (dispatch, getState) => {
-        return dispatch({[CALL_API]: {
+        dispatch({[CALL_API]: {
             type: ACTIONS.UPDATE,
             namespace: namespace,
             data: instance
         }});
-    }
+    };
 }
 
-function make_delete(namespace) {
+function makeDelete(namespace) {
     return (id) => (dispatch, getState) => {
-        return dispatch({[CALL_API]: {
+        dispatch({[CALL_API]: {
             type: ACTIONS.DELETE,
             namespace: namespace,
-            data: { id: id }
+            data: {id: id}
         }});
-    }
+    };
 }
 
 export default function(namespaces) {
     let data = {};
-    namespaces.forEach(namespace => {
+
+    namespaces.forEach((namespace) => {
         let ptr = data;
-        let last_name = null;
+        let lastName = null;
+
         namespace.split('.').forEach((name, index, array) => {
-            if (! ptr.hasOwnProperty(name)) {
+            if (!ptr.hasOwnProperty(name)) {
                 ptr[name] = {};
             }
 
-            // If we are in the last element, save the name so we can use ptr[last_name]
+            // If we are in the last element, save the name so we can use ptr[lastName]
             // Else re-allocate ptr to equal the new object
             // This is so after we iterate the array, we are not re-allocating ptr itself, but a
             // member inside ptr
-            if (index == array.length - 1) {
-                last_name = name;
+            if (index === array.length - 1) {
+                lastName = name;
             } else {
                 ptr = ptr[name];
             }
         });
 
-        ptr[last_name] = {
-            add: make_add(namespace),
-            read: make_read(namespace),
-            read_all: make_read_all(namespace),
-            update: make_update(namespace),
-            delete: make_delete(namespace)
+        ptr[lastName] = {
+            add: makeAdd(namespace),
+            read: makeRead(namespace),
+            read_all: makeReadAll(namespace),
+            update: makeUpdate(namespace),
+            delete: makeDelete(namespace)
         };
     });
     return data;
