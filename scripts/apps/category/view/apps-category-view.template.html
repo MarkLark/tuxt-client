@@ -1,0 +1,14 @@
+<h3>Apps</h3>
+<button ng-click="$ctrl.readAll()">Load All Categories</button>
+
+<h5>App List:</h5>
+<ul>
+    <li ng-repeat="cat in categories">
+        {{cat.id}} - {{ cat.tag }} - {{ cat.name }} - {{ cat.description }}
+        <a href ng-click="$ctrl.remove(cat.id)"> - Delete</a>
+        <a href ng-click="$ctrl.goto_update(cat.id)"> - Update</a>
+    </li>
+</ul>
+
+<input type="number" ng-model="oid" placeholder="Instance ID"/>
+<button ng-click="$ctrl.read(oid)">Load Single Category</button>
