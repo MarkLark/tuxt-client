@@ -30,7 +30,7 @@ app.config(['$locationProvider', ($locationProvider) => {
 }]);
 
 // Load config for ui-router
-app.config(routeConfig(app));
+app.config(routeConfig());
 
 // Load Redux config
 app.config(reduxConfig);

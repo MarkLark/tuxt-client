@@ -1,4 +1,4 @@
-export default function(app) {
+export default function() {
     RouterConfig.$inject = ['$stateProvider'];
     function RouterConfig($stateProvider) {
         $stateProvider
