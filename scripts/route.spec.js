@@ -3,7 +3,8 @@ import routeConfig from './route.config';
 
 describe('Route Config', () => {
     beforeEach(() => {
-        let app = angular.module('test', [uiRouter])
+        let app = angular.module('test', [uiRouter]);
+
         app.config(routeConfig());
         angular.mock.module('test');
     });
@@ -15,5 +16,4 @@ describe('Route Config', () => {
             expect($state.current.name).toBe('index.appscatview');
         }));
     });
-
 });
