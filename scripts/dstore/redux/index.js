@@ -54,9 +54,11 @@ export let dstore = {};
 export default function DStore(namespaces) {
     let models = convertNamespaces(namespaces);
 
+    dstore = generateActions(namespaces);
+
     return {
         reducers: generateReducers(models),
         middleware: dstoreMiddleware,
-        actions: generateActions(namespaces)
+        actions: dstore
     };
 }
